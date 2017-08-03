@@ -9,23 +9,25 @@ package agrifarm;
  *
  * @author Dilshan
  */
-// janith
+//maduritha
 public class Farm implements java.io.Serializable{
     
     private String area;
     private String fields;
-    private int id;
+    private String id;
     private String name;
     
     
-    public Farm(String fName, String fArea){
-       
-    
+    public Farm(String fName, String fArea, String fID){
+        
        this.name=fName;
        this.area=fArea;
+       this.id = fID;
     }
     
-    public int getId(){
+      
+    
+    public String getId(){
       return id;
   }
     

@@ -32,10 +32,7 @@ public class farmManagement extends javax.swing.JFrame {
         initComponents();
         showFarms();
     }
-    
-    
-
-    
+ 
      private void showFarms(){
 
         try{ 

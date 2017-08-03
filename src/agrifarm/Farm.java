@@ -13,14 +13,20 @@ public class Farm implements java.io.Serializable{
     
     private String area;
     private String fields;
-    private String id;
+    private int id;
     private String name;
     
     
     public Farm(String fName, String fArea){
+       
+    
        this.name=fName;
        this.area=fArea;
     }
+    
+    public int getId(){
+      return id;
+  }
     
     public String getName(){
       return name;

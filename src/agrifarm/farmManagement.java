@@ -5,18 +5,67 @@
  */
 package agrifarm;
 
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.Vector;
+import javax.swing.DefaultListModel;
+
 /**
  *
  * @author Dilshan
  */
+
+
+
 public class farmManagement extends javax.swing.JFrame {
 
-    /**
-     * Creates new form farmManagement
-     */
+    private static final String farmDB="farmDB.ser";
+    Vector<Integer> farmID = new Vector<Integer>();
+    Vector farmVector = new Vector<Farm>();
+    
+    
+    
     public farmManagement() {
         initComponents();
+        showFarms();
     }
+    
+     private void showFarms(){
+
+        try{ 
+           DefaultListModel<String> model = new DefaultListModel<String>();           
+           int count=0; 
+           FileInputStream in = new FileInputStream(farmDB);
+           ObjectInputStream ois;
+            try{               
+                while(true){
+                     ois = new ObjectInputStream(in);
+                     Farm newFarms = (Farm) ois.readObject();
+                     model.add(count,newFarms.getName());
+                     farmVector.add(newFarms);
+                     count++;
+                }                
+            }catch(EOFException e){
+                
+            }
+          jList1.setModel(model);
+          in.close();
+          
+      }catch(IOException e){
+   
+      } catch (ClassNotFoundException ex) {
+         
+      }
+         
+  }
+
+  
+    
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

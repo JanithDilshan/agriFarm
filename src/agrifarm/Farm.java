@@ -9,6 +9,7 @@ package agrifarm;
  *
  * @author Dilshan
  */
+// janith
 public class Farm implements java.io.Serializable{
     
     private String area;

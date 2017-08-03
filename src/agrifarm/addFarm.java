@@ -20,11 +20,12 @@ import javax.swing.JOptionPane;
 public class addFarm extends javax.swing.JFrame {
 
     private static final String farmDB="farmDB.ser";
+    
     public addFarm() {
         initComponents();
     }
     
-    public void Bookserialize(Object obj1, String filename) throws IOException
+    public void Farmserialize(Object obj1, String filename) throws IOException
   {
     FileOutputStream out=new FileOutputStream(filename, true);
     ObjectOutputStream oos=new ObjectOutputStream(out);
@@ -42,7 +43,7 @@ public class addFarm extends javax.swing.JFrame {
         try{
             System.out.println("Adding farm...");
             System.out.println(newFarm);
-            Bookserialize(newFarm, farmDB);
+            Farmserialize(newFarm, farmDB);
             
         }catch(IOException e){
               System.out.println(e);

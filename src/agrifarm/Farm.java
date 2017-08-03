@@ -16,4 +16,20 @@ public class Farm implements java.io.Serializable{
     private String id;
     private String name;
     
+    
+    public Farm(String fName, String fArea){
+       this.name=fName;
+       this.area=fArea;
+    }
+    
+    public String getName(){
+      return name;
+  }
+  
+  public String getArea(){
+      return area;
+  }
+    
+   
+    
 }

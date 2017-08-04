@@ -5,9 +5,13 @@
  */
 package agrifarm;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
- * @author seth
+ * @author Dharshana
  */
 public class hardwareManagement extends javax.swing.JFrame {
 
@@ -104,7 +108,7 @@ public class hardwareManagement extends javax.swing.JFrame {
 
         jLabel3.setText("Select Field Station");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3" }));
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -200,7 +204,13 @@ public class hardwareManagement extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        //Add new sensor
+        String a = new String("Lol");
+        try {
+            Serialize sensorSerialize=new Serialize(a,"sensorDB.ser");
+        } catch (IOException ex) {
+            Logger.getLogger(hardwareManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

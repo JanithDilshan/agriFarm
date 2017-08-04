@@ -15,7 +15,7 @@ import java.io.ObjectOutputStream;
  */
 public class Serialize {
    //serialize given object to the given filename
-  Serialize(Object object, String filename) throws IOException
+  public Serialize(Object object, String filename) throws IOException
   {
     FileOutputStream out=new FileOutputStream(filename, true);
     ObjectOutputStream oos=new ObjectOutputStream(out);

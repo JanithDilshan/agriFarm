@@ -27,64 +27,87 @@ public class FieldManagement extends javax.swing.JFrame {
     private static final String farmDB = "farmDB.ser";
     private static final String fieldDB = "fieldDB.ser";
     
-    private AddFieldFarm farm;
-    private String assignFarmId;
-    String str;
+    Vector fieldVector = new Vector<Field>();
+    String farmId, farmName;
+    private String assignFieldId, assignFieldName;
     /**
      * Creates new form AddField
      */
     public FieldManagement() {
         initComponents();
-        showFields();
     }
     
-//    public FieldManagement(String Id) {
-//        this.str = Id;
-//        System.out.println("passed farm id: " + str);
-//        initComponents();
-//        showFields();
-//    }
+    public FieldManagement(String Id, String name) {
+        this.farmId = Id;
+        this.farmName = name;
+        initComponents();
+        getFields();
+        searchFields(Id);
+    }
     
-    private void showFields() {
-
-        try {
-            Vector<Vector<String>> data = new Vector<>();
-            Vector<String> header = new Vector<>();
-            header.add("ID");
-            header.add("Name");
-            header.add("Location");
-            header.add("Farm Id");
+    public void setFieldsTable(Vector<Field> vb)
+    {
+        DefaultTableModel fieldTable = new DefaultTableModel();
+        Vector columnName = new Vector();
+        columnName.addElement("ID");
+        columnName.addElement("Field Name");
+        columnName.addElement("Location");
+        columnName.addElement("Farm Name");
+        fieldTable.setColumnIdentifiers(columnName);
+        try
+        {
+            for(int i=0;i<vb.size();i++)
+            {
+                Field ff = (Field)vb.get(i);
+                Vector tableData = new Vector();
+                tableData.addElement(ff.getFarmId());
+                tableData.addElement(ff.getName());
+                tableData.addElement(ff.getLocation());
+                tableData.addElement(ff.getFarmName());
+                
+                fieldTable.addRow(tableData);
+            }
+            tblFields.setModel(fieldTable);
+        }
+        catch(Exception e)
+        {}
+    }
+    
+    private void getFields(){
+        try{
 
             FileInputStream in = new FileInputStream(fieldDB);
-            ObjectInputStream ois;
-            try {
-                while (true) {
-                    ois = new ObjectInputStream(in);
-                    Field newField = (Field) ois.readObject();
-                    Vector v = new Vector();
-                    v.add(newField.getId());
-                    v.add(newField.getName());
-                    v.add(newField.getLocation());
-                    v.add(newField.getFarmId());
+            ObjectInputStream oi;  
+                try{             
+                    while(true){
+                        oi = new ObjectInputStream(in);
+                        Field allFields = (Field) oi.readObject();
+                        fieldVector.add(allFields);
+                    }                
+                } catch(EOFException e){
 
-                    data.add(v);
-                    System.out.println("inner");
-                    
                 }
-            } catch (EOFException e) {
 
-            }
-            tblFields.setModel(new DefaultTableModel(data, header));
             in.close();
 
-        } catch (IOException e) {
-
-      } catch (ClassNotFoundException ex) {
-         
-      }
-         
+        } catch(IOException e){} 
+        catch (ClassNotFoundException ex) {}
   }
+   
     
+    public void searchFields(String Id){
+        String searchInput = Id;
+        Vector fieldSearchVector = new Vector<Field>();
+        
+        for(int i=0; i<fieldVector.size(); i++){
+            Field fields = (Field) fieldVector.get(i);
+            
+            if(fields.getFarmId().equals(searchInput)){
+                fieldSearchVector.add(fields);
+            }
+        }  
+        setFieldsTable(fieldSearchVector);
+    }
 
 
     /**
@@ -100,6 +123,8 @@ public class FieldManagement extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblFields = new javax.swing.JTable();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -117,10 +142,29 @@ public class FieldManagement extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Id", "Name", "Location", "Farm Id"
+                "ID", "Name", "Location", "Farm"
             }
         ));
+        tblFields.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblFieldsMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblFields);
+
+        jButton2.setText("Add Plot");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("View Plots");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -132,14 +176,22 @@ public class FieldManagement extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3)))
                 .addContainerGap(99, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(121, Short.MAX_VALUE))
@@ -167,6 +219,36 @@ public class FieldManagement extends javax.swing.JFrame {
         AddFieldFarm obj = new AddFieldFarm();
         obj.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        //selectedFarm = farm.findFarm(assignFarmId);
+        System.out.println("Field selected : " + assignFieldId + ", name: " + assignFieldName);
+        
+        AddPlot obj = new AddPlot();
+        
+        obj.fieldId = assignFieldId;
+        obj.fieldName= assignFieldName;
+        obj.setVisible(true); 
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+         //selectedFarm = farm.findFarm(assignFarmId);
+        System.out.println("Field selected : " + assignFieldId + ", name: " + assignFieldName);
+        
+        PlotManagement obj = new PlotManagement(assignFieldId, assignFieldName);
+        
+        obj.fieldId = assignFieldId;
+        obj.fieldName= assignFieldName;
+        obj.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void tblFieldsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblFieldsMouseClicked
+        int row = tblFields.getSelectedRow();
+        if (tblFields.getRowSelectionAllowed()) {
+            assignFieldId = tblFields.getValueAt(row, 0).toString();
+            assignFieldName= tblFields.getValueAt(row, 1).toString();
+        }
+    }//GEN-LAST:event_tblFieldsMouseClicked
 
     /**
      * @param args the command line arguments
@@ -206,6 +288,8 @@ public class FieldManagement extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblFields;

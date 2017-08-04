@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="name" type="java.lang.String" value="WebUI" noResource="true"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -24,16 +25,11 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="488" max="32767" attributes="0"/>
+              <EmptySpace pref="137" max="32767" attributes="0"/>
+              <Component id="jButton3" min="-2" pref="230" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
               <Component id="jButton2" min="-2" pref="230" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="135" max="-2" attributes="0"/>
-          </Group>
-          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
-                  <Component id="jButton3" min="-2" pref="230" max="-2" attributes="0"/>
-                  <EmptySpace pref="502" max="32767" attributes="0"/>
-              </Group>
           </Group>
       </Group>
     </DimensionLayout>
@@ -41,15 +37,11 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace pref="189" max="32767" attributes="0"/>
-              <Component id="jButton2" min="-2" pref="95" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="181" max="-2" attributes="0"/>
-          </Group>
-          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="190" max="32767" attributes="0"/>
-                  <Component id="jButton3" min="-2" pref="95" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="180" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jButton2" alignment="3" min="-2" pref="95" max="-2" attributes="0"/>
+                  <Component id="jButton3" alignment="3" min="-2" pref="95" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace min="-2" pref="181" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

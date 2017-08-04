@@ -5,13 +5,10 @@
  */
 package agrifarm;
 
-public class GPSCoord {
-    private double lat;
-    private double lng;
-
-    public GPSCoord(double lat, double lng) {
-        this.lat = lat;
-        this.lng = lng;
-    }
-    
+/**
+ *
+ * @author IP
+ */
+public class Crop {
+    private String cropName;
 }

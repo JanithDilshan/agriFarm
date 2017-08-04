@@ -5,13 +5,15 @@
  */
 package agrifarm;
 
-public class GPSCoord {
-    private double lat;
-    private double lng;
+import java.util.Date;
 
-    public GPSCoord(double lat, double lng) {
-        this.lat = lat;
-        this.lng = lng;
-    }
-    
+/**
+ *
+ * @author IP
+ */
+public class PlotHistory {
+    private double yeildKG;
+    private Crop crop;
+    private Date startTime;
+    private Date endTime;
 }

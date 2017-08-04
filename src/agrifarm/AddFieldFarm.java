@@ -25,7 +25,7 @@ public class AddFieldFarm extends javax.swing.JFrame {
 
     private static final String farmDB ="farmDB.ser";
     private static final String fieldDB = "fieldDB.ser";
-    String str, farmId;
+    String farmName, farmId;
     public Farm farmDetatls, farm;
 
     /**
@@ -35,62 +35,12 @@ public class AddFieldFarm extends javax.swing.JFrame {
         initComponents();
     }
 
-//    private void showFarms() {
-//
-//        try {
-//            Vector<Vector<String>> data = new Vector<>();
-//            Vector<String> header = new Vector<>();
-//            header.add("ID");
-//            header.add("Name");
-//            header.add("Area");
-//            header.add("Location");
-//            header.add("Farm ID");
-//
-//            FileInputStream in = new FileInputStream(fieldDB);
-//            ObjectInputStream ois;
-//            try {
-//                while (true) {
-//                    ois = new ObjectInputStream(in);
-//                    Field newField = (Field) ois.readObject();
-//                    Vector v = new Vector();
-//                    v.add(newField.getId());
-//                    v.add(newField.getName());
-//                    v.add(newField.getLocation());
-//                    v.add(newField.getFarmId());
-//
-//                    data.add(v);
-//                    
-////                    count++;
-//                }
-//            } catch (EOFException e) {
-//
-//            }
-//            tblFarms.setModel(new DefaultTableModel(data, header));
-//            in.close();
-//
-//        } catch (IOException e) {
-//
-//      } catch (ClassNotFoundException ex) {
-//         
-//      }
-//         
-//  }
-    
-    public AddFieldFarm(String Id) {
-        this.str = Id;
-        System.out.println("passed farm id: " + str);
+    public AddFieldFarm(String Id, String name) {
+        this.farmId = Id;
+        this.farmName= name;
+        System.out.println("passed farm id: " + farmName);
         initComponents();
     }
-    
-    
-    public void FieldSerialize(Object obj1, String filename) throws IOException{
-        FileOutputStream out=new FileOutputStream(filename, true);
-        ObjectOutputStream oos=new ObjectOutputStream(out);
-        oos.writeObject(obj1);
-        out.close();
-        System.out.println("Field Saved");
-    }
-    
     
     public void addField(){
        
@@ -98,19 +48,18 @@ public class AddFieldFarm extends javax.swing.JFrame {
         String location = txtLocation.getText().toString();
         String uniqueID = UUID.randomUUID().toString();
         
-        Field newField = new Field (name,location,uniqueID, str);
+        Field newField = new Field (name,location,uniqueID, farmId, farmName);
        
         try{
             System.out.println("Adding farm...");
             System.out.println(newField);
-            FieldSerialize(newField, fieldDB);
+            Serialize s = new Serialize(newField, fieldDB);
             
         }catch(IOException e){
               System.out.println(e);
         }
 
-    }
-    
+    }    
     
 
     /**
@@ -147,12 +96,11 @@ public class AddFieldFarm extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitle.setText("Add Field:");
+        lblTitle.setText("Add Field");
 
-        btnAdd.setText("Add");
+        btnAdd.setText("Add Field");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
@@ -182,44 +130,54 @@ public class AddFieldFarm extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(160, 160, 160)
+                        .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(70, 70, 70)
-                        .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(60, 60, 60))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(10, 10, 10))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(txtLocation, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
-                    .addComponent(txtFieldName))
-                .addContainerGap())
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtFieldName, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                                .addComponent(txtLocation)))))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(12, 12, 12)
                 .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(txtFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(32, 32, 32)
-                .addComponent(btnAdd))
+                .addGap(18, 18, 18)
+                .addComponent(btnAdd)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 25, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -228,7 +186,7 @@ public class AddFieldFarm extends javax.swing.JFrame {
         int reply = JOptionPane.showConfirmDialog(null,
                     "Are yous sure?", "Adding Farm", JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION) {
-        addField();
+            addField();
         }
         
     }//GEN-LAST:event_btnAddActionPerformed

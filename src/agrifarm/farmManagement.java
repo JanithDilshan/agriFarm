@@ -5,59 +5,68 @@
  */
 package agrifarm;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.Vector;
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Dilshan
  */
-
-
-
 public class farmManagement extends javax.swing.JFrame {
 
-    private static final String farmDB="farmDB.ser";
+    private static final String farmDB = "farmDB.ser";
     Vector<Integer> farmID = new Vector<Integer>();
     Vector farmVector = new Vector<Farm>();
     
-    
+    private Farm selectedFarm;
+    private AddFieldFarm farm;
+    private String assignFarmId;
     
     public farmManagement() {
         initComponents();
         showFarms();
     }
- 
-     private void showFarms(){
 
-        try{ 
-           DefaultListModel<String> model = new DefaultListModel<String>();           
-           int count=0; 
-           FileInputStream in = new FileInputStream(farmDB);
-           ObjectInputStream ois;
-            try{               
-                while(true){
-                     ois = new ObjectInputStream(in);
-                     Farm newFarms = (Farm) ois.readObject();
-                     model.add(count,newFarms.getName());
-                     farmVector.add(newFarms);
-                     count++;
-                }                
-            }catch(EOFException e){
-                
+    private void showFarms() {
+
+        try {
+            Vector<Vector<String>> data = new Vector<>();
+            Vector<String> header = new Vector<>();
+            header.add("ID");
+            header.add("Name");
+            header.add("Area");
+            header.add("Location");
+
+            FileInputStream in = new FileInputStream(farmDB);
+            ObjectInputStream ois;
+            try {
+                while (true) {
+                    ois = new ObjectInputStream(in);
+                    Farm newFarms = (Farm) ois.readObject();
+                    Vector v = new Vector();
+                    v.add(newFarms.getId());
+                    v.add(newFarms.getName());
+                    v.add(newFarms.getArea());
+
+                    data.add(v);
+                    
+                }
+            } catch (EOFException e) {
+
             }
-           
-          jList1.setModel(model);
-      
-          in.close();
-          
-      }catch(IOException e){
-   
+            tblFarms.setModel(new DefaultTableModel(data, header));
+            in.close();
+
+        } catch (IOException e) {
+
       } catch (ClassNotFoundException ex) {
          
       }
@@ -79,27 +88,26 @@ public class farmManagement extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jList2 = new javax.swing.JList<>();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        btnAddFarm = new javax.swing.JButton();
+        btnViewField = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblFarms = new javax.swing.JTable();
+        btnAddField1 = new javax.swing.JButton();
+
+        jList2.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(jList2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jButton1.setText("Add Farm");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jList1);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -114,40 +122,93 @@ public class farmManagement extends javax.swing.JFrame {
         ));
         jScrollPane5.setViewportView(jTable1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                .addGap(124, 124, 124))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addComponent(jButton1)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE))
-                .addContainerGap(91, Short.MAX_VALUE))
-        );
+        getContentPane().add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(345, 116, 0, 215));
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnAddFarm.setText("Add Farm");
+        btnAddFarm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddFarmActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnAddFarm, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        btnViewField.setText(" View Fields");
+        btnViewField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewFieldActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnViewField, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, -1, -1));
+
+        tblFarms.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Name", "Area", "Location"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tblFarms.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblFarmsMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tblFarms);
+
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, 270));
+
+        btnAddField1.setText(" Add Field");
+        btnAddField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddField1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnAddField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 470, 420));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnAddFarmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFarmActionPerformed
          addFarm obj = new addFarm();
          obj.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnAddFarmActionPerformed
 
+    private void btnViewFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewFieldActionPerformed
+       FieldManagement obj = new FieldManagement();
+       obj.setVisible(true);
+    }//GEN-LAST:event_btnViewFieldActionPerformed
+
+    private void tblFarmsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblFarmsMouseClicked
+         //reteive selected book index
+        int row = tblFarms.getSelectedRow();
+        //get bookNo from selecte row by user
+        if (tblFarms.getRowSelectionAllowed()) {
+            assignFarmId = tblFarms.getValueAt(row, 0).toString();
+        }
+    }//GEN-LAST:event_tblFarmsMouseClicked
+
+    private void btnAddField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddField1ActionPerformed
+        //selectedFarm = farm.findFarm(assignFarmId);
+        System.out.println("Book selected : " + assignFarmId);
+        
+        AddFieldFarm obj = new AddFieldFarm();
+        
+        obj.str = assignFarmId;
+        obj.setVisible(true); 
+    }//GEN-LAST:event_btnAddField1ActionPerformed
+ 
     /**
      * @param args the command line arguments
      */
@@ -184,10 +245,15 @@ public class farmManagement extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JList jList1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton btnAddFarm;
+    private javax.swing.JButton btnAddField1;
+    private javax.swing.JButton btnViewField;
+    private javax.swing.JList<String> jList2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblFarms;
     // End of variables declaration//GEN-END:variables
 }

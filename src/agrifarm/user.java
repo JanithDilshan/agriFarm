@@ -6,6 +6,7 @@
 package agrifarm;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Vector;
 
 /**
  *
@@ -15,29 +16,55 @@ public class user implements Serializable {
     
     private String username;
     private String password;
+    private String userLevel;
     
     
-     public user(String username, String password){
-        
+     public user(String username, String password, String userLevel){
        this.username = username;
        this.password = password;
+       this.userLevel = userLevel;
     } 
-    
-    public void register(){
-        
-        
      
-    }
-    
+     public user(){
+  
+    } 
+ 
      public String getUsername(){
       return username;
   }
      public String getPassword(){
       return password;
   }
+     
+     public String getUserLevel(){
+      return userLevel;
+  }
+     
+     
+     public void auth(String username, String password, Vector userVector){
+         
+        for(int i=0;i<userVector.size();i++){
+            user books = (user) userVector.get(i);
+            if(books.getUsername().contains(username) && books.getPassword().contains(password)){
+                if(books.getUserLevel()=="Farmer"){
+                    System.out.println("Manager");
+                } else {
+                    
+                    System.out.println("Pass");
+                }
+               
+            } else{
+               System.out.println("Bad");
+            }
+           
+        }
+         
+         
+         
+         
+    }
     
-    
-    
+   
 }
 
 

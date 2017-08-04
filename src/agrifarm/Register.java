@@ -33,21 +33,17 @@ public class Register extends javax.swing.JFrame {
   }
     
         public void addUser(){
-       
         String usernmae = usernameText.getText().toString();
         String password = passwordText.getText().toString();
-
-        user newUser = new user (usernmae,password);
-       
+        String userLevel =userLevelText.getText().toString();
+        user newUser = new user (usernmae,password, userLevel);
         try{
             System.out.println("Adding user...");
             System.out.println(newUser);
-            USerserialize(newUser, userDB);
-            
+            USerserialize(newUser, userDB);  
         }catch(IOException e){
               System.out.println(e);
         }
-
     }
     
     
@@ -64,6 +60,7 @@ public class Register extends javax.swing.JFrame {
         usernameText = new javax.swing.JTextField();
         passwordText = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        userLevelText = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,6 +75,8 @@ public class Register extends javax.swing.JFrame {
             }
         });
 
+        userLevelText.setText(" ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -85,13 +84,14 @@ public class Register extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(148, 148, 148)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(124, 124, 124)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(usernameText, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
-                            .addComponent(passwordText)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(150, 150, 150)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(passwordText)
+                            .addComponent(userLevelText))))
                 .addContainerGap(129, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -101,9 +101,11 @@ public class Register extends javax.swing.JFrame {
                 .addComponent(usernameText, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(passwordText, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(userLevelText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
                 .addComponent(jButton1)
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addContainerGap(96, Short.MAX_VALUE))
         );
 
         pack();
@@ -159,6 +161,7 @@ public class Register extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JTextField passwordText;
+    private javax.swing.JTextField userLevelText;
     private javax.swing.JTextField usernameText;
     // End of variables declaration//GEN-END:variables
 }

@@ -41,8 +41,7 @@ public class addFarm extends javax.swing.JFrame {
         String name = farmNameText.getText().toString();
         String area = locationText.getText().toString();
         String uniqueID = UUID.randomUUID().toString();
-        
-        
+
         Farm newFarm = new Farm (name,area, uniqueID);
        
         try{

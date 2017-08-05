@@ -1,13 +1,16 @@
 package agrifarm;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author Dharshana
  * Sensor Class
  */
-public class Sensor {
-    private GPSCoord location;
+
+public class Sensor implements Serializable{
+//    private GPSCoord location;
+    private String location;
     private boolean enabled;
     private long frequency;
     private Date lastCheck;
@@ -16,7 +19,7 @@ public class Sensor {
     private SensorReader sensorReader;
     private FieldStation fieldStation;
     
-    public enum SensorType { 
+    public enum SensorType{ 
         AIR_TEMPERATURE,
         PRESSURE,
         SOIL_MOISTURE,
@@ -29,8 +32,42 @@ public class Sensor {
     public enum FieldStation{
         FS1
     }
+    
+    
+    public String getLocation() {
+        return location;
+    }
 
-    public Sensor(GPSCoord location, boolean enabled, long frequency, Date lastCheck, int sensorId, SensorType sensorType, SensorReader sensorReader, FieldStation fieldStation) {
+    public long getFrequency() {
+        return frequency;
+    }
+
+    public String getSensorType() {
+        String sensorType = "";
+         switch(this.sensorType){
+            case AIR_TEMPERATURE:
+                sensorType="Air Temperature";
+                break;
+            case PRESSURE:
+                sensorType="Pressure";
+                break;
+            case SOIL_MOISTURE:
+                sensorType="Soil Moisture";
+                break;
+            case ACIDITY:
+                sensorType="Acidity";
+                break;
+            case SOIL_TEMPERATURE:
+                sensorType="Soil Temperature";
+                break;
+            case LIGHT_SENSOR:
+                sensorType="Light Sensor";
+                break;
+          }
+         return sensorType;
+    }
+
+    public Sensor(String location, boolean enabled, long frequency, Date lastCheck, int sensorId, SensorType sensorType, SensorReader sensorReader, FieldStation fieldStation) {
         this.location = location;
         this.enabled = enabled;
         this.frequency = frequency;

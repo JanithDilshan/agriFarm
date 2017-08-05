@@ -9,7 +9,7 @@ package agrifarm;
  *
  * @author Dharshana
  */
-public class AirTempReader {
+public class AirTempReader extends SensorReader{
    public double readSensorData(){
     return 2;
  } 

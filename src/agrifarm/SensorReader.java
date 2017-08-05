@@ -5,12 +5,14 @@
  */
 package agrifarm;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Dharshana
  */
 
 //every sensor data returns 2 for now, fix later.
-abstract public class SensorReader {
+abstract public class SensorReader implements Serializable{
  abstract public double readSensorData();   
 }

@@ -9,7 +9,7 @@ package agrifarm;
  *
  * @author Dharshana
  */
-public class SoilAcidityReader {
+public class SoilAcidityReader extends SensorReader{
     public double readSensorData(){
     return 2;
  } 

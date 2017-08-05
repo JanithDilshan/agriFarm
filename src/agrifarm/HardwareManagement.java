@@ -29,12 +29,17 @@ import javax.swing.table.TableColumn;
  *
  * @author Dharshana
  */
+<<<<<<< HEAD
 public class hardwareManagement extends javax.swing.JFrame {
     public static final String sensorDB="sensorDB.ser";
+=======
+public class HardwareManagement extends javax.swing.JFrame {
+
+>>>>>>> validation
     /**
      * Creates new form sensorManagement
      */
-    public hardwareManagement() {
+    public HardwareManagement() {
         initComponents();
         //load table by default
         loadSensors();
@@ -347,7 +352,7 @@ public class hardwareManagement extends javax.swing.JFrame {
             loadSensors();
             jTabbedPane1.setSelectedIndex(0);
         } catch (IOException ex) {
-            Logger.getLogger(hardwareManagement.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HardwareManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
       } catch (NumberFormatException e) {  
          JOptionPane.showMessageDialog(null, "Frequency Can Only Be A Number (Miliseconds)", "Invalid Frequency", JOptionPane.ERROR_MESSAGE);
@@ -462,21 +467,23 @@ public class hardwareManagement extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(hardwareManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HardwareManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(hardwareManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HardwareManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(hardwareManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HardwareManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(hardwareManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HardwareManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new hardwareManagement().setVisible(true);
+                new HardwareManagement().setVisible(true);
             }
         });
     }

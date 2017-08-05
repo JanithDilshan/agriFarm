@@ -11,6 +11,7 @@ import java.io.Serializable;
  *
  * @author Dilshan
  */
+//maduritha
 public class Farm implements Serializable {
     
     private String area;

@@ -12,20 +12,20 @@ import java.util.Vector;
  *
  * @author Dilshan
  */
-public class user implements Serializable {
+public class User implements Serializable {
     
     private String username;
     private String password;
     private String userLevel;
     
     
-     public user(String username, String password, String userLevel){
+     public User(String username, String password, String userLevel){
        this.username = username;
        this.password = password;
        this.userLevel = userLevel;
     } 
      
-     public user(){
+     public User(){
   
     } 
  

@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Dilshan
  */
-public class farmManagement extends javax.swing.JFrame {
+public class FarmManagement extends javax.swing.JFrame {
 
     private static final String farmDB = "farmDB.ser";
     Vector<Integer> farmID = new Vector<Integer>();
@@ -29,13 +29,20 @@ public class farmManagement extends javax.swing.JFrame {
     private Farm selectedFarm;
     private AddFieldFarm farm;
     private String assignFarmId, assignFarmName;
+    boolean status;
     
-    public farmManagement() {
+    public FarmManagement() {
         initComponents();
         getFarms();
         searchFarms();
     }
 
+    private void enableButtons() {
+        btnViewField.setEnabled(true);
+        btnAddField.setEnabled(true);
+        btnDeleteFarm.setEnabled(true);
+    }
+    
     public void setFarmsTable(Vector<Farm> farm) {
         DefaultTableModel farmTable = new DefaultTableModel();
         Vector columnName = new Vector();
@@ -88,6 +95,20 @@ public class farmManagement extends javax.swing.JFrame {
         }  
         setFarmsTable(farmSearchVector);
     }
+    
+    public boolean deleteFarms(String id){
+        Vector farmSearchVector = new Vector<Farm>();
+        
+        for(int i=0; i<farmVector.size(); i++){
+            Farm farms = (Farm) farmVector.get(i);
+            if(farms.getId().contentEquals(id)){
+                farmVector.removeElement(farms);
+                System.out.println("farm vector: "+farmVector);
+                status = true;
+            }
+        }  
+        return status;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -103,11 +124,16 @@ public class farmManagement extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        btnAddFarm = new javax.swing.JButton();
-        btnViewField = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblFarms = new javax.swing.JTable();
-        btnAddField1 = new javax.swing.JButton();
+        btnAddFarm = new javax.swing.JButton();
+        btnAddField = new javax.swing.JButton();
+        btnViewField = new javax.swing.JButton();
+        btnDeleteFarm = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         jList2.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -134,20 +160,12 @@ public class farmManagement extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(345, 116, 0, 215));
 
-        btnAddFarm.setText("Add Farm");
-        btnAddFarm.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddFarmActionPerformed(evt);
-            }
-        });
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnViewField.setText(" View Fields");
-        btnViewField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnViewFieldActionPerformed(evt);
-            }
-        });
+        jPanel2.setBackground(new java.awt.Color(204, 255, 204));
 
+        tblFarms.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(0, 255, 0), null, null));
+        tblFarms.setFont(new java.awt.Font("Hoefler Text", 0, 18)); // NOI18N
         tblFarms.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -171,49 +189,132 @@ public class farmManagement extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(tblFarms);
 
-        btnAddField1.setText(" Add Field");
-        btnAddField1.addActionListener(new java.awt.event.ActionListener() {
+        btnAddFarm.setBackground(new java.awt.Color(255, 255, 204));
+        btnAddFarm.setFont(new java.awt.Font("Hoefler Text", 0, 18)); // NOI18N
+        btnAddFarm.setText("Add Farm");
+        btnAddFarm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddField1ActionPerformed(evt);
+                btnAddFarmActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnAddFarm)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnAddField1)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnViewField))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40))
+        btnAddField.setBackground(new java.awt.Color(204, 255, 255));
+        btnAddField.setFont(new java.awt.Font("Hoefler Text", 0, 18)); // NOI18N
+        btnAddField.setText(" Add Field");
+        btnAddField.setToolTipText("Please select a row");
+        btnAddField.setEnabled(false);
+        btnAddField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddFieldActionPerformed(evt);
+            }
+        });
+
+        btnViewField.setBackground(new java.awt.Color(204, 255, 255));
+        btnViewField.setFont(new java.awt.Font("Hoefler Text", 0, 18)); // NOI18N
+        btnViewField.setText(" View Fields");
+        btnViewField.setToolTipText("Please select a row");
+        btnViewField.setEnabled(false);
+        btnViewField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewFieldActionPerformed(evt);
+            }
+        });
+
+        btnDeleteFarm.setBackground(new java.awt.Color(255, 204, 204));
+        btnDeleteFarm.setFont(new java.awt.Font("Hoefler Text", 0, 18)); // NOI18N
+        btnDeleteFarm.setText("Delete Farm");
+        btnDeleteFarm.setToolTipText("Please select a row");
+        btnDeleteFarm.setEnabled(false);
+        btnDeleteFarm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteFarmActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnDeleteFarm, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAddFarm, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAddField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnViewField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAddFarm)
-                    .addComponent(btnAddField1)
-                    .addComponent(btnViewField))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(162, 162, 162))
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(btnAddFarm, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(btnDeleteFarm, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(btnAddField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(btnViewField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 500));
+        jLabel1.setFont(new java.awt.Font("Hoefler Text", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 102, 0));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Farm Management");
 
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
+        jLabel2.setFont(new java.awt.Font("Bodoni Ornaments", 0, 48)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 153, 0));
+        jLabel2.setText("[");
+
+        jLabel3.setFont(new java.awt.Font("Bodoni Ornaments", 0, 48)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 153, 0));
+        jLabel3.setText("\\");
+
+            javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+            jPanel1.setLayout(jPanel1Layout);
+            jPanel1Layout.setHorizontalGroup(
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(25, 25, 25)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(25, Short.MAX_VALUE))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jLabel1)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jLabel3)
+                    .addGap(242, 242, 242))
+            );
+            jPanel1Layout.setVerticalGroup(
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(25, 25, 25)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(25, 25, 25)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(25, Short.MAX_VALUE))
+            );
+
+            getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 533));
+
+            pack();
+        }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddFarmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFarmActionPerformed
-        addFarm obj = new addFarm();
+        AddFarm obj = new AddFarm();
         obj.setVisible(true);
     }//GEN-LAST:event_btnAddFarmActionPerformed
 
@@ -232,10 +333,11 @@ public class farmManagement extends javax.swing.JFrame {
         if (tblFarms.getRowSelectionAllowed()) {
             assignFarmId = tblFarms.getValueAt(row, 0).toString();
             assignFarmName= tblFarms.getValueAt(row, 1).toString();
+            enableButtons();
         }
     }//GEN-LAST:event_tblFarmsMouseClicked
 
-    private void btnAddField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddField1ActionPerformed
+    private void btnAddFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFieldActionPerformed
         System.out.println("Farm selected : " + assignFarmId + ", name: " + assignFarmName);
         
         AddFieldFarm obj = new AddFieldFarm();
@@ -243,7 +345,18 @@ public class farmManagement extends javax.swing.JFrame {
         obj.farmId = assignFarmId;
         obj.farmName= assignFarmName;
         obj.setVisible(true); 
-    }//GEN-LAST:event_btnAddField1ActionPerformed
+    }//GEN-LAST:event_btnAddFieldActionPerformed
+
+    private void btnDeleteFarmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteFarmActionPerformed
+        status = deleteFarms(assignFarmId);
+        if(status == true) {
+            System.out.println("Successfully deleted!");
+            getFarms();
+            searchFarms();
+        } else {
+            System.out.println("unable to delete!");
+        }
+    }//GEN-LAST:event_btnDeleteFarmActionPerformed
  
     /**
      * @param args the command line arguments
@@ -262,30 +375,36 @@ public class farmManagement extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(farmManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FarmManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(farmManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FarmManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(farmManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FarmManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(farmManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FarmManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new farmManagement().setVisible(true);
+                new FarmManagement().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddFarm;
-    private javax.swing.JButton btnAddField1;
+    private javax.swing.JButton btnAddField;
+    private javax.swing.JButton btnDeleteFarm;
     private javax.swing.JButton btnViewField;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JList<String> jList2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;

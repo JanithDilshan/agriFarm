@@ -15,7 +15,6 @@ import java.io.ObjectOutputStream;
  */
 public class Serialize {
    //serialize given object to the given filename
-  private static final long serialVersionUID = 1L;
   public Serialize(Object object, String filename) throws IOException
   {
     FileOutputStream out=new FileOutputStream(filename, true);

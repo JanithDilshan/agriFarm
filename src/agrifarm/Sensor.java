@@ -10,11 +10,12 @@ import java.util.Date;
 
 public class Sensor implements Serializable{
 //    private GPSCoord location;
+    private static final long serialVersionUID = 1L;
     private String location;
     private boolean enabled;
     private long frequency;
     private Date lastCheck;
-    private int sensorId;
+    private String sensorId;
     private SensorType sensorType;
     private SensorReader sensorReader;
     private FieldStation fieldStation;
@@ -42,8 +43,9 @@ public class Sensor implements Serializable{
         return frequency;
     }
 
-    public String getSensorType() {
-        String sensorType = "";
+    //returns sensor type string for table display purposes
+    public String getSensorType(String input) {
+        String sensorType = input;
          switch(this.sensorType){
             case AIR_TEMPERATURE:
                 sensorType="Air Temperature";
@@ -67,7 +69,29 @@ public class Sensor implements Serializable{
          return sensorType;
     }
 
-    public Sensor(String location, boolean enabled, long frequency, Date lastCheck, int sensorId, SensorType sensorType, SensorReader sensorReader, FieldStation fieldStation) {
+    //returns sensorType in type:sensorType
+    public SensorType getSensorType() {
+        return sensorType;
+    }
+
+    public String getSensorId() {
+        return sensorId;
+    }
+
+    public Date getLastCheck() {
+        return lastCheck;
+    }
+
+    public FieldStation getFieldStation() {
+        return fieldStation;
+    }
+
+    public SensorReader getSensorReader() {
+        return sensorReader;
+    }
+    
+
+    public Sensor(String location, boolean enabled, long frequency, Date lastCheck, String sensorId, SensorType sensorType, SensorReader sensorReader, FieldStation fieldStation) {
         this.location = location;
         this.enabled = enabled;
         this.frequency = frequency;

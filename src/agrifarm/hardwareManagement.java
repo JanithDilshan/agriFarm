@@ -10,8 +10,10 @@ import agrifarm.Sensor.FieldStation;
 import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.UUID;
 import java.util.Vector;
@@ -19,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
@@ -27,7 +30,7 @@ import javax.swing.table.TableColumn;
  * @author Dharshana
  */
 public class hardwareManagement extends javax.swing.JFrame {
-    private static final String sensorDB="sensorDB.ser";
+    public static final String sensorDB="sensorDB.ser";
     /**
      * Creates new form sensorManagement
      */
@@ -41,6 +44,7 @@ public class hardwareManagement extends javax.swing.JFrame {
         try {
             Vector<Vector<String>> data = new Vector<>();
             Vector<String> header = new Vector<>();
+            header.add("Sensor ID");
             header.add("Sensor");
             header.add("Location");
             header.add("Frequency");
@@ -52,7 +56,8 @@ public class hardwareManagement extends javax.swing.JFrame {
                     ois = new ObjectInputStream(in);
                     Sensor newSensor = (Sensor) ois.readObject();
                     Vector v = new Vector();
-                    v.add(newSensor.getSensorType());
+                    v.add(newSensor.getSensorId());
+                    v.add(newSensor.getSensorType(""));
                     v.add(newSensor.getLocation());
                     v.add(newSensor.getFrequency());
                     v.add(newSensor.isEnabled());
@@ -64,16 +69,13 @@ public class hardwareManagement extends javax.swing.JFrame {
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(hardwareManagement.class.getName()).log(Level.SEVERE, null, ex);
             }
-            System.out.println("should print4");
             sensorListTable.setModel(new DefaultTableModel(data, header));
-            TableColumn enabledColumn = sensorListTable.getColumnModel().getColumn(3);
+            TableColumn enabledColumn = sensorListTable.getColumnModel().getColumn(4);
             JComboBox comboBox = new JComboBox();
-            comboBox.addItem("yes");
-            comboBox.addItem("no");
+            comboBox.addItem("true");
+            comboBox.addItem("false");
             enabledColumn.setCellEditor(new DefaultCellEditor(comboBox));
-
-
-            System.out.println("should print");
+            
             in.close();
 
         } catch (IOException e) {
@@ -98,6 +100,7 @@ public class hardwareManagement extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         sensorListTable = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
+        updateConfigButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         newSensorFieldStationComboBox = new javax.swing.JComboBox<>();
@@ -136,6 +139,13 @@ public class hardwareManagement extends javax.swing.JFrame {
 
         jLabel2.setText("Sensors");
 
+        updateConfigButton.setText("Update Config");
+        updateConfigButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateConfigButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -153,6 +163,9 @@ public class hardwareManagement extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(updateConfigButton))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,7 +180,9 @@ public class hardwareManagement extends javax.swing.JFrame {
                         .addGap(25, 25, 25)
                         .addComponent(jLabel2)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(updateConfigButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -256,7 +271,7 @@ public class hardwareManagement extends javax.swing.JFrame {
                 .addComponent(newSensorEnableStatusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(newSensorAddButton)
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Manage Sensors", jPanel2);
@@ -286,12 +301,17 @@ public class hardwareManagement extends javax.swing.JFrame {
         //Add new sensor
 //        Double lat=Double.parseDouble(newSensorLocationTextField.getText());
 //        Double lng=Double.parseDouble(newSensorLocationLngTextField.getText());
+      try {  
         String location=newSensorLocationTextField.getText();
         Boolean enabled=Boolean.valueOf(newSensorEnableStatusComboBox.getSelectedItem().toString());
         Long frequency=Long.parseLong(newSensorUpdateFrequencyTextField.getText());
+        frequency=Long.parseLong(newSensorUpdateFrequencyTextField.getText());
         Date today = new Date();
-//        int sensorId=UUID.randomUUID().hashCode();
-        int sensorId=7;
+        
+        //create unique id for sensor using UUID
+        String sensorId=UUID.randomUUID().toString();
+//        int sensorId=7;
+
         //get enum type from comboBox
         SensorType newSensorType=null;
         System.out.print("xx:"+newSensorTypeComboBox.getSelectedItem().toString());
@@ -319,7 +339,7 @@ public class hardwareManagement extends javax.swing.JFrame {
         FieldStation newFieldStation = FieldStation.FS1;
         //try to serialize
         try {
-            //new sensor object with above variable
+            //new sensor object with above variables
             Sensor newSensor = new Sensor(location,enabled,frequency,today,sensorId,newSensorType,new SoilAcidityReader(),newFieldStation);
             Serialize sensorSerialize=new Serialize(newSensor,sensorDB);
             
@@ -329,6 +349,10 @@ public class hardwareManagement extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(hardwareManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
+      } catch (NumberFormatException e) {  
+         JOptionPane.showMessageDialog(null, "Frequency Can Only Be A Number (Miliseconds)", "Invalid Frequency", JOptionPane.ERROR_MESSAGE);
+      } 
+        
     }//GEN-LAST:event_newSensorAddButtonActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -342,6 +366,84 @@ public class hardwareManagement extends javax.swing.JFrame {
     private void newSensorLocationTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newSensorLocationTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_newSensorLocationTextFieldActionPerformed
+
+    private void updateConfigButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateConfigButtonActionPerformed
+        //Update Config
+        try {    
+            //create Objects from table and re-insert
+            DefaultTableModel dataModel = (DefaultTableModel) sensorListTable.getModel();
+            
+            //loop through the table and remake sensor Objects
+            Boolean newEnabled=null;
+            Long newFrequency=null;
+            String sensorId=null;
+            
+            //vector to store newly updated and other Sensor objects until commiting
+            Vector updatedSensors = new Vector();
+            
+            //loop thorough jtable rows and columns and get changed values
+            for(int row=0;row<sensorListTable.getRowCount();row++){
+                for(int column=0;column<sensorListTable.getColumnCount();column++){
+                    switch(column)
+                    {
+                        case 0:
+                            sensorId = dataModel.getValueAt(row, column).toString();
+                            break;
+                        case 3:
+                            newFrequency = Long.parseLong(dataModel.getValueAt(row, column).toString());
+                            break;
+                        case 4:
+                            newEnabled = Boolean.valueOf(dataModel.getValueAt(row, column).toString());
+                            break;
+                    }
+                }
+                //read sensorDB file
+                try{
+                       FileInputStream in = new FileInputStream(sensorDB);
+                       ObjectInputStream ois;
+                       boolean loop = true;
+                       while (loop) {
+                            ois = new ObjectInputStream(in);
+                            Sensor newSensor = (Sensor) ois.readObject();
+                            if (newSensor == null) {
+                                loop = false;
+                            } else {
+                                System.out.println(newSensor.getSensorId().equals(sensorId));
+                                if (newSensor.getSensorId().equals(sensorId)) {
+                                    System.out.println("yeah");
+                                    //Found The Changed Sensor Id, change values and add to vector
+                                    Sensor updatedSensor = new Sensor(newSensor.getLocation(), newEnabled, newFrequency, newSensor.getLastCheck(), newSensor.getSensorId(), newSensor.getSensorType(), newSensor.getSensorReader(), newSensor.getFieldStation());
+                                    updatedSensors.add(updatedSensor);
+                                }
+                            }
+                    }
+                }
+                catch(EOFException ex){
+                    System.out.println("normal eof");
+                }
+                catch(IOException ex){
+                    ex.printStackTrace();
+                }
+
+            }
+            //finally, clear the sensorDB and rewrite the vector into it.
+            new FileOutputStream(sensorDB).close();
+            for (int i = 0; i < updatedSensors.size(); i++)
+                {
+                    new Serialize(updatedSensors.get(i),sensorDB);
+                }
+            //reload the table using new data
+            loadSensors();
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(hardwareManagement.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(hardwareManagement.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(hardwareManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_updateConfigButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -400,5 +502,6 @@ public class hardwareManagement extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> newSensorTypeComboBox;
     private javax.swing.JTextField newSensorUpdateFrequencyTextField;
     private javax.swing.JTable sensorListTable;
+    private javax.swing.JButton updateConfigButton;
     // End of variables declaration//GEN-END:variables
 }

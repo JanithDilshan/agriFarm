@@ -11,7 +11,6 @@ import java.io.Serializable;
  *
  * @author Dilshan
  */
-//maduritha
 public class Farm implements Serializable {
     
     private String area;
@@ -19,12 +18,14 @@ public class Farm implements Serializable {
     private String id;
     private String name;
     private String farm;
+    private String username;
     
     
-    public Farm(String fName, String fArea, String fID){
+    public Farm(String fName, String fArea, String fID, String user){
         this.name=fName;
         this.area=fArea;
         this.id = fID;
+        this.username = user;
     } 
     
     public String getId(){
@@ -37,5 +38,9 @@ public class Farm implements Serializable {
   
     public String getArea(){
         return area;
+    }
+    
+    public String getUser(){
+        return username;
     }
 }

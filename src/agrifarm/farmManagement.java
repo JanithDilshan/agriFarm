@@ -25,52 +25,69 @@ public class farmManagement extends javax.swing.JFrame {
     private static final String farmDB = "farmDB.ser";
     Vector<Integer> farmID = new Vector<Integer>();
     Vector farmVector = new Vector<Farm>();
-    
+    String currentUser = DataManagement.userName;
     private Farm selectedFarm;
     private AddFieldFarm farm;
     private String assignFarmId, assignFarmName;
     
     public farmManagement() {
         initComponents();
-        showFarms();
+        getFarms();
+        searchFarms();
     }
 
-    private void showFarms() {
-
-        try {
-            Vector<Vector<String>> data = new Vector<>();
-            Vector<String> header = new Vector<>();
-            header.add("ID");
-            header.add("Name");
-            header.add("Area");
-
-            FileInputStream in = new FileInputStream(farmDB);
-            ObjectInputStream ois;
-            try {
-                while (true) {
-                    ois = new ObjectInputStream(in);
-                    Farm newFarms = (Farm) ois.readObject();
-                    Vector v = new Vector();
-                    v.add(newFarms.getId());
-                    v.add(newFarms.getName());
-                    v.add(newFarms.getArea());
-
-                    data.add(v);
-                    
-                }
-            } catch (EOFException e) {
-
+    public void setFarmsTable(Vector<Farm> farm) {
+        DefaultTableModel farmTable = new DefaultTableModel();
+        Vector columnName = new Vector();
+        columnName.addElement("ID");
+        columnName.addElement("Farm Name");
+        columnName.addElement("Location");
+        farmTable.setColumnIdentifiers(columnName);
+        try{
+            for(int i=0; i<farm.size(); i++)
+            {
+                Farm ff = (Farm)farm.get(i);
+                Vector tableData = new Vector();
+                tableData.addElement(ff.getId());
+                tableData.addElement(ff.getName());
+                tableData.addElement(ff.getArea());
+                farmTable.addRow(tableData);
             }
-            tblFarms.setModel(new DefaultTableModel(data, header));
+            tblFarms.setModel(farmTable);
+        }
+        catch(Exception e)
+        {}
+    }
+    
+    private void getFarms(){
+        try{
+            FileInputStream in = new FileInputStream(farmDB);
+            ObjectInputStream oi;  
+                try{             
+                    while(true){
+                        oi = new ObjectInputStream(in);
+                        Farm allFarms = (Farm) oi.readObject();
+                        farmVector.add(allFarms);
+                    }                
+                } catch(EOFException e){}
+
             in.close();
 
-        } catch (IOException e) {
-
-      } catch (ClassNotFoundException ex) {
-         
-      }
-         
-  } 
+        } catch(IOException e){} 
+        catch (ClassNotFoundException ex) {}
+    }
+    
+    public void searchFarms(){
+        Vector farmSearchVector = new Vector<Farm>();
+        
+        for(int i=0; i<farmVector.size(); i++){
+            Farm farms = (Farm) farmVector.get(i);
+            if(farms.getUser().contentEquals(currentUser)){
+                farmSearchVector.add(farms);
+            }
+        }  
+        setFarmsTable(farmSearchVector);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -201,7 +218,6 @@ public class farmManagement extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddFarmActionPerformed
 
     private void btnViewFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewFieldActionPerformed
-        //selectedFarm = farm.findFarm(assignFarmId);
         System.out.println("Farm selected : " + assignFarmId + ", name: " + assignFarmName);
         
         FieldManagement obj = new FieldManagement(assignFarmId,assignFarmName);
@@ -220,7 +236,6 @@ public class farmManagement extends javax.swing.JFrame {
     }//GEN-LAST:event_tblFarmsMouseClicked
 
     private void btnAddField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddField1ActionPerformed
-        //selectedFarm = farm.findFarm(assignFarmId);
         System.out.println("Farm selected : " + assignFarmId + ", name: " + assignFarmName);
         
         AddFieldFarm obj = new AddFieldFarm();

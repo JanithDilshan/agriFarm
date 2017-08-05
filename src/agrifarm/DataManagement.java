@@ -29,57 +29,43 @@ public class DataManagement {
  Vector Users = new Vector<user>();
  
  
-public void loadUsers(){
-           
+    public void loadUsers(){
         try{ 
-           DefaultListModel<String> model = new DefaultListModel<String>();           
-           int count=0; 
-           FileInputStream in = new FileInputStream(userDB);
-           ObjectInputStream ois;
+            DefaultListModel<String> model = new DefaultListModel<String>();           
+            int count=0; 
+            FileInputStream in = new FileInputStream(userDB);
+            ObjectInputStream ois;
             try{               
                 while(true){
-                     ois = new ObjectInputStream(in);
-                     user newMember = (user) ois.readObject();
-                     model.add(count,newMember.getUsername());
-                     Users.add(newMember);
-                     count++;
-                     }
+                    ois = new ObjectInputStream(in);
+                    user newMember = (user) ois.readObject();
+                    model.add(count,newMember.getUsername());
+                    Users.add(newMember);
+                    count++;
+                }
            
-            }catch(EOFException e){
-                
-            }
+            } catch(EOFException e){}
             in.close();
-          
-      }catch(IOException e){
-   
-      } catch (ClassNotFoundException ex) {
-         
-      }
-       
-      
-  }
+        } catch(IOException e){} 
+        catch (ClassNotFoundException ex) {}
+    }
 
 
-public void auth(String username, String password){
-         
+    public void auth(String username, String password){
         for(int i=0;i<Users.size();i++){
-            user books = (user) Users.get(i);
-            if(books.getUsername().contains(username) && books.getPassword().contains(password)){
-             
-                    userName= books.getUsername();
-                    userLevel= books.getUserLevel();
-                    isSuccess=true;
-               
-            } else{
-               System.out.println("No");
+            user users = (user) Users.get(i);
+
+            if((users.getUsername().contains(username)) && (users.getPassword().contains(password))){
+                userName= users.getUsername();
+                userLevel= users.getUserLevel();
+                isSuccess=true;
             }
-           
         }    
     }
 
     public void addFarm(String farmName, String farmArea, String uniqueID){
         
-        Farm newFarm = new Farm (farmName, farmArea, uniqueID);
+        Farm newFarm = new Farm (farmName, farmArea, uniqueID, userName);
         try{
             System.out.println("Adding farm...");
             System.out.println(newFarm);
@@ -91,10 +77,8 @@ public void auth(String username, String password){
 
     }
  
- public DataManagement() {
-     
-     // Empty constructor
-     
- }
+    public DataManagement() {
+        // Empty constructor
+    }
     
 }

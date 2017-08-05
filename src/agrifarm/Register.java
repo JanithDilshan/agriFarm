@@ -23,14 +23,6 @@ public class Register extends javax.swing.JFrame {
         initComponents();
     }
     
-  public void USerserialize(Object obj1, String filename) throws IOException
-  {
-    FileOutputStream out=new FileOutputStream(filename, true);
-    ObjectOutputStream oos=new ObjectOutputStream(out);
-    oos.writeObject(obj1);
-    out.close();
-    System.out.println("User Saved");
-  }
     
         public void addUser(){
         String usernmae = usernameText.getText().toString();
@@ -40,7 +32,7 @@ public class Register extends javax.swing.JFrame {
         try{
             System.out.println("Adding user...");
             System.out.println(newUser);
-            USerserialize(newUser, userDB);  
+            Serialize ser = new Serialize(newUser, userDB);  
         }catch(IOException e){
               System.out.println(e);
         }
@@ -117,10 +109,7 @@ public class Register extends javax.swing.JFrame {
                     "Are yous sure?", "Adding Farm", JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION) {
         addUser();
-        }
-        
-        
-        
+        }   
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

@@ -40,31 +40,7 @@ public class user implements Serializable {
       return userLevel;
   }
      
-     
-     public void auth(String username, String password, Vector userVector){
-         
-        for(int i=0;i<userVector.size();i++){
-            user books = (user) userVector.get(i);
-            if(books.getUsername().contains(username) && books.getPassword().contains(password)){
-                if(books.getUserLevel()=="Farmer"){
-                    System.out.println("Manager");
-                } else {
-                    
-                    System.out.println("Pass");
-                }
-               
-            } else{
-               System.out.println("Bad");
-            }
-           
-        }
-         
-         
-         
-         
-    }
     
-   
 }
 
 

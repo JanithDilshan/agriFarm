@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.Vector;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -140,12 +141,22 @@ public class Login extends javax.swing.JFrame {
         user obj =  new user();
         DataManagement user = new DataManagement();
         user.showUsers();
-        obj.auth(username,password, user.Users);
+        user.auth(username,password);
+        
+        if(DataManagement.isSuccess==true) {
+        weControllerUI home = new weControllerUI();
+        home.setVisible(true);
+        } else{
+            
+            JOptionPane.showMessageDialog(null, "Incorrect username or password !");
+        }
   
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:  
+        
+        Register register = new Register();
+        register.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

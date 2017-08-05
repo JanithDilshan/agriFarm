@@ -17,6 +17,10 @@ import javax.swing.DefaultListModel;
  * @author Dilshan
  */
 public class DataManagement {
+    
+ public static String userLevel;
+ public static String userName;
+ public static boolean isSuccess=false;
  private static final String userDB = "userDB.ser";
  
  
@@ -52,6 +56,24 @@ public void showUsers(){
        
       
   }
+
+
+public void auth(String username, String password){
+         
+        for(int i=0;i<Users.size();i++){
+            user books = (user) Users.get(i);
+            if(books.getUsername().contains(username) && books.getPassword().contains(password)){
+             
+                    userName= books.getUsername();
+                    userLevel= books.getUserLevel();
+                    isSuccess=true;
+               
+            } else{
+               System.out.println("No");
+            }
+           
+        }    
+    }
  
  public DataManagement() {
      

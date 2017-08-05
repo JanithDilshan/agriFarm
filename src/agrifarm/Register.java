@@ -35,7 +35,7 @@ public class Register extends javax.swing.JFrame {
         public void addUser(){
         String usernmae = usernameText.getText().toString();
         String password = passwordText.getText().toString();
-        String userLevel =userLevelText.getText().toString();
+        String userLevel =(String)userLevelText.getSelectedItem();
         user newUser = new user (usernmae,password, userLevel);
         try{
             System.out.println("Adding user...");
@@ -60,7 +60,7 @@ public class Register extends javax.swing.JFrame {
         usernameText = new javax.swing.JTextField();
         passwordText = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        userLevelText = new javax.swing.JTextField();
+        userLevelText = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,7 +75,7 @@ public class Register extends javax.swing.JFrame {
             }
         });
 
-        userLevelText.setText(" ");
+        userLevelText.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Farmer" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -91,7 +91,7 @@ public class Register extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(usernameText, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
                             .addComponent(passwordText)
-                            .addComponent(userLevelText))))
+                            .addComponent(userLevelText, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(129, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -101,9 +101,9 @@ public class Register extends javax.swing.JFrame {
                 .addComponent(usernameText, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(passwordText, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(userLevelText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16)
+                .addComponent(userLevelText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
                 .addContainerGap(96, Short.MAX_VALUE))
         );
@@ -161,7 +161,7 @@ public class Register extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JTextField passwordText;
-    private javax.swing.JTextField userLevelText;
+    private javax.swing.JComboBox userLevelText;
     private javax.swing.JTextField usernameText;
     // End of variables declaration//GEN-END:variables
 }

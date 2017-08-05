@@ -15,7 +15,7 @@ public class weControllerUI extends javax.swing.JFrame {
      * Creates new form weControllerUI
      */
     public weControllerUI() {
-        initComponents();
+        initComponents();  
     }
 
     /**

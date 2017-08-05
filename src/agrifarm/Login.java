@@ -203,10 +203,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_usernameTextActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(usernameText.getText().isEmpty() || passwordText.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please fill all the fields...", 
-                    "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
+        
             String username = usernameText.getText().toString();
             String password = passwordText.getText().toString();
             User obj =  new User();
@@ -220,7 +217,7 @@ public class Login extends javax.swing.JFrame {
             } else{
                 JOptionPane.showMessageDialog(null, "Incorrect username or password !");
             }
-        }
+        
   
     }//GEN-LAST:event_jButton1ActionPerformed
 

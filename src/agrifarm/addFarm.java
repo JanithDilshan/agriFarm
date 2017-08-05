@@ -26,34 +26,7 @@ public class addFarm extends javax.swing.JFrame {
         initComponents();
     }
     
-    public void Farmserialize(Object obj1, String filename) throws IOException
-  {
-    FileOutputStream out=new FileOutputStream(filename, true);
-    ObjectOutputStream oos=new ObjectOutputStream(out);
-    oos.writeObject(obj1);
-    out.close();
-    System.out.println("Farm Saved");
-  }
-    
-    
-    public void addFarm(){
-       
-        String name = farmNameText.getText().toString();
-        String area = locationText.getText().toString();
-        String uniqueID = UUID.randomUUID().toString();
 
-        Farm newFarm = new Farm (name,area, uniqueID);
-       
-        try{
-            System.out.println("Adding farm...");
-            System.out.println(newFarm);
-            Farmserialize(newFarm, farmDB);
-            
-        }catch(IOException e){
-              System.out.println(e);
-        }
-
-    }
     
     
 
@@ -165,7 +138,9 @@ public class addFarm extends javax.swing.JFrame {
         int reply = JOptionPane.showConfirmDialog(null,
                     "Are yous sure?", "Adding Farm", JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION) {
-        addFarm();
+        String uniqueID = UUID.randomUUID().toString();
+        DataManagement newFarm = new DataManagement();
+        newFarm.addFarm(farmNameText.getText().toString(),locationText.getText().toString(), uniqueID );
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed

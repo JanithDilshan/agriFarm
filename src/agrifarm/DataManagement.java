@@ -9,6 +9,7 @@ import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.UUID;
 import java.util.Vector;
 import javax.swing.DefaultListModel;
 
@@ -22,12 +23,13 @@ public class DataManagement {
  public static String userName;
  public static boolean isSuccess=false;
  private static final String userDB = "userDB.ser";
+ private static final String farmDB="farmDB.ser";
  
  
  Vector Users = new Vector<user>();
  
  
-public void showUsers(){
+public void loadUsers(){
            
         try{ 
            DefaultListModel<String> model = new DefaultListModel<String>();           
@@ -73,6 +75,20 @@ public void auth(String username, String password){
             }
            
         }    
+    }
+
+    public void addFarm(String farmName, String farmArea, String uniqueID){
+        
+        Farm newFarm = new Farm (farmName, farmArea, uniqueID);
+        try{
+            System.out.println("Adding farm...");
+            System.out.println(newFarm);
+            Serialize ser = new Serialize(newFarm, farmDB);
+            
+        }catch(IOException e){
+              System.out.println(e);
+        }
+
     }
  
  public DataManagement() {

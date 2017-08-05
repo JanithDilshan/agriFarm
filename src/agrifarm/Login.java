@@ -140,7 +140,7 @@ public class Login extends javax.swing.JFrame {
         String password = passwordText.getText().toString();
         user obj =  new user();
         DataManagement user = new DataManagement();
-        user.showUsers();
+        user.loadUsers();
         user.auth(username,password);
         
         if(DataManagement.isSuccess==true) {
@@ -154,7 +154,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+
         Register register = new Register();
         register.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed

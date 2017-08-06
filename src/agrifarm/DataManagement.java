@@ -26,7 +26,7 @@ public class DataManagement {
  private static final String farmDB="farmDB.ser";
  
  
- Vector Users = new Vector<User>();
+ Vector Users = new Vector<user>();
  
  
     public void loadUsers(){
@@ -38,7 +38,7 @@ public class DataManagement {
             try{               
                 while(true){
                     ois = new ObjectInputStream(in);
-                    User newMember = (User) ois.readObject();
+                    user newMember = (user) ois.readObject();
                     model.add(count,newMember.getUsername());
                     Users.add(newMember);
                     count++;
@@ -53,7 +53,7 @@ public class DataManagement {
 
     public void auth(String username, String password){
         for(int i=0;i<Users.size();i++){
-            User users = (User) Users.get(i);
+            user users = (user) Users.get(i);
 
             if((users.getUsername().contains(username)) && (users.getPassword().contains(password))){
                 userName= users.getUsername();

@@ -35,7 +35,7 @@ public class Register extends javax.swing.JFrame {
         String usernmae = usernameText.getText().toString();
         String password = passwordText.getText().toString();
         String userLevel =(String)userLevelText.getSelectedItem();
-        User newUser = new User (usernmae,password, userLevel);
+        user newUser = new user (usernmae,password, userLevel);
         try{
             System.out.println("Adding user...");
             System.out.println(newUser);
@@ -80,7 +80,7 @@ public class Register extends javax.swing.JFrame {
         passwordText.setText(" ");
 
         userLevelText.setFont(new java.awt.Font("Hoefler Text", 0, 18)); // NOI18N
-        userLevelText.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Select", "Farmer" }));
+        userLevelText.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Select", "Farmer", "Food Processor" }));
 
         jButton1.setFont(new java.awt.Font("Hoefler Text", 0, 18)); // NOI18N
         jButton1.setText("Register");
@@ -216,6 +216,8 @@ public class Register extends javax.swing.JFrame {
                         "Are yous sure?", "Adding Farm", JOptionPane.YES_NO_OPTION);
             if (reply == JOptionPane.YES_OPTION) {
                 addUser();
+                Login l = new Login();
+                l.setVisible(true);
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed

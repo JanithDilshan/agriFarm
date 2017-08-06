@@ -21,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
 public class Login extends javax.swing.JFrame {
 
     private static final String userDB = "userDB.ser";
-    Vector userVector = new Vector<User>();
+    Vector userVector = new Vector<user>();
     
     public Login() {
         initComponents();
@@ -206,16 +206,16 @@ public class Login extends javax.swing.JFrame {
         
             String username = usernameText.getText().toString();
             String password = passwordText.getText().toString();
-            User obj =  new User();
+            user obj =  new user();
             DataManagement user = new DataManagement();
             user.loadUsers();
             user.auth(username,password);
 
             if(DataManagement.isSuccess==true) {
-            WebControllerUI home = new WebControllerUI();
-            home.setVisible(true);
-            } else{
-                JOptionPane.showMessageDialog(null, "Incorrect username or password !");
+                weControllerUI home = new weControllerUI();
+                home.setVisible(true);
+                } else{
+                    JOptionPane.showMessageDialog(null, "Incorrect username or password !");
             }
         
   

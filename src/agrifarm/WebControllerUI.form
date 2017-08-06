@@ -69,9 +69,9 @@
                           <EmptySpace min="0" pref="161" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jButton3" min="-2" pref="230" max="-2" attributes="0"/>
+                                  <Component id="btnFarmManagement" min="-2" pref="230" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                                  <Component id="jButton2" min="-2" pref="230" max="-2" attributes="0"/>
+                                  <Component id="btnHardwareManagement" min="-2" pref="230" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="161" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
@@ -104,8 +104,8 @@
                           </Group>
                           <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jButton3" alignment="3" min="-2" pref="95" max="-2" attributes="0"/>
-                              <Component id="jButton2" alignment="3" min="-2" pref="95" max="-2" attributes="0"/>
+                              <Component id="btnFarmManagement" alignment="3" min="-2" pref="95" max="-2" attributes="0"/>
+                              <Component id="btnHardwareManagement" alignment="3" min="-2" pref="95" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="208" max="32767" attributes="0"/>
                       </Group>
@@ -136,7 +136,7 @@
             <Property name="text" type="java.lang.String" value="jLabel2"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton3">
+        <Component class="javax.swing.JButton" name="btnFarmManagement">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="33" green="cc" red="ff" type="rgb"/>
@@ -147,10 +147,10 @@
             <Property name="text" type="java.lang.String" value="Farm Management"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFarmManagementActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton2">
+        <Component class="javax.swing.JButton" name="btnHardwareManagement">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="33" green="cc" red="ff" type="rgb"/>
@@ -161,7 +161,7 @@
             <Property name="text" type="java.lang.String" value="Hardware Management"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHardwareManagementActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">

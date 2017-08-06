@@ -32,8 +32,8 @@ public class WebControllerUI extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnFarmManagement = new javax.swing.JButton();
+        btnHardwareManagement = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -59,21 +59,21 @@ public class WebControllerUI extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel2.setText("jLabel2");
 
-        jButton3.setBackground(new java.awt.Color(255, 204, 51));
-        jButton3.setFont(new java.awt.Font("Hoefler Text", 0, 18)); // NOI18N
-        jButton3.setText("Farm Management");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnFarmManagement.setBackground(new java.awt.Color(255, 204, 51));
+        btnFarmManagement.setFont(new java.awt.Font("Hoefler Text", 0, 18)); // NOI18N
+        btnFarmManagement.setText("Farm Management");
+        btnFarmManagement.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnFarmManagementActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(255, 204, 51));
-        jButton2.setFont(new java.awt.Font("Hoefler Text", 0, 18)); // NOI18N
-        jButton2.setText("Hardware Management");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnHardwareManagement.setBackground(new java.awt.Color(255, 204, 51));
+        btnHardwareManagement.setFont(new java.awt.Font("Hoefler Text", 0, 18)); // NOI18N
+        btnHardwareManagement.setText("Hardware Management");
+        btnHardwareManagement.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnHardwareManagementActionPerformed(evt);
             }
         });
 
@@ -208,9 +208,9 @@ public class WebControllerUI extends javax.swing.JFrame {
                             .addGap(0, 161, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnFarmManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(30, 30, 30)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnHardwareManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(161, 161, 161))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabel1)
@@ -234,8 +234,8 @@ public class WebControllerUI extends javax.swing.JFrame {
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(40, 40, 40)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnFarmManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnHardwareManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(0, 208, Short.MAX_VALUE))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addContainerGap()
@@ -263,20 +263,17 @@ public class WebControllerUI extends javax.swing.JFrame {
             pack();
         }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnHardwareManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHardwareManagementActionPerformed
         
-<<<<<<< HEAD
-        hardwareManagement obj = new hardwareManagement();
-=======
-        FarmManagement obj = new FarmManagement();
->>>>>>> validation
-        obj.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+        HardwareManagement obj = new HardwareManagement();
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        obj.setVisible(true);
+    }//GEN-LAST:event_btnHardwareManagementActionPerformed
+
+    private void btnFarmManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFarmManagementActionPerformed
         FarmManagement obj = new FarmManagement();
         obj.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnFarmManagementActionPerformed
 
     /**
      * @param args the command line arguments
@@ -315,8 +312,8 @@ public class WebControllerUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnFarmManagement;
+    private javax.swing.JButton btnHardwareManagement;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
